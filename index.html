@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TR WebDesign</title>
+</head>
+
+<body>
+    <script>
+        // Init
+
+        let obj = [];
+        let i = 0;
+        let status;
+
+        do {
+            let name = prompt('Enter Name : ');
+            let family = prompt('Enter Family : ');
+            let age = prompt('Enter your Age : ');
+
+            obj[i] = {
+                'name': name,
+                'family': family,
+                'age': age
+            }
+
+
+            status = confirm('Do you want to insert ?');
+
+            i++;
+        } while (status);
+
+        console.table(obj);
+    </script>
+</body>
+
+</html>
