@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S 02</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            transition: all .5s linear;
+        }
+
+        body {
+            margin: 2rem 0;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .btn {
+            color: white;
+            padding: .5rem 1rem;
+            border-radius: 5px;
+            border: unset;
+            margin: 1rem 10px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: 0.7;
+        }
+
+        .btn-red {
+            background: #d13636;
+        }
+
+        .btn-green {
+            background: #238f2c;
+        }
+
+        tr>th,
+        tr>th {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="start" class="btn btn-green"> Start </button>
+        <button id="clear" class="btn btn-red"> Clear </button>
+    </div>
+
+    <table id="show-data">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>family</th>
+        </tr>
+        <!-- Hi -->
+    </table>
+
+    <script>
+        let obj = {};
+        let i = 1;
+        let status;
+        let table_container = document.getElementById('show-data');
+        let htable = `<tr><th>id</th><th>name</th><th>family</th></tr>`;
+
+        const table = (id, args) => {
+            const { name, family } = args;
+            return `<table>
+                <tr>
+                    <td>${id}</td>
+                    <td>${name}</td>
+                    <td>${family}</td>
+                </tr>
+            </table>`;
+        }
+
+        function run() {
+            do {
+                obj[i] = getData();
+                status = confirm('Do You Want To Insert ? ');
+                showData(obj);
+                i++;
+            } while (status);
+        }
+
+        function getData() {
+            let name = prompt('Enter Your Name !');
+            let family = prompt('Enter Your Family !');
+            return {
+                "name": name,
+                "family": family
+            }
+        }
+
+        function clearData() {
+            obj = {};
+            i = 1;
+            table_container.innerHTML = htable;
+        }
+
+        function showData() {
+            let items = htable;
+            Object.entries(obj).forEach(item => {
+                items += table(item[0], item[1]);
+            });
+            table_container.innerHTML = items;
+        }
+
+        btn_start = document.getElementById('start');
+        btn_clear = document.getElementById('clear');
+
+        btn_start.addEventListener('click', run);
+        btn_clear.addEventListener('click', clearData);
+    </script>
+
+</body>
+
+</html>
