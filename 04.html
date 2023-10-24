@@ -18,12 +18,17 @@
             <h3>Alireza Vahdani</h3>
         </section>
         <section class="description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore nulla laudantium repellat sit expedita
-            officiis corporis molestiae aliquid eveniet illo hic sint, impedit beatae perferendis vitae. Minus, maxime
-            non!
+            A student at Montazeri University of Mashhad and active in the web field, she is also a programmer in PHP,
+            Laravel, and Wordpress
         </section>
         <section class="more">
-            <button>Click For More ... </button>
+            <button onclick="location.href='https://alireza10up.ir'">Click For More ... </button>
+        </section>
+        <section class="changeColor">
+            <input type="color">
+        </section>
+        <section>
+            <button id="change">change</button>
         </section>
     </article>
     <footer>
@@ -31,6 +36,21 @@
         <a href="#">telegram</a>
         <a href="#">discord</a>
     </footer>
+
+    <script>
+        let changeBtn = document.querySelector('#change');
+        let titleName = document.querySelector('.head h3');
+        let description = document.querySelector('.description');
+
+        changeBtn.addEventListener('click', runChange);
+
+        function runChange() {
+            let colorInput = document.querySelector('.changeColor input').value;
+
+            titleName.style.color = colorInput;
+            description.style.color = colorInput;
+        }
+    </script>
 </body>
 
 </html>
