@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Register</title>
+</head>
+
+<body>
+    <section>
+        <div id="form">
+            <button id="add">Add Inputs</button>
+            <section id="inputs">
+
+            </section>
+            <button id="log">Show Log In Console</button>
+        </div>
+    </section>
+
+
+    <script>
+        // component
+
+        const form_inputs = (i) => {
+            return `name : <input type="text" id="name-${i}">family : <input type="text" id="family-${i}"> checkbox <input type="checkbox" id="check-${i}"></br>`;
+        }
+
+        // default
+
+        let i = 0;
+        let obj = {};
+
+        // items node 
+
+        let btn_add = document.getElementById('add');
+        let btn_log = document.getElementById('log');
+        let form = document.getElementById('form');
+        let section_inputs = document.getElementById('inputs');
+
+        // core
+
+        function add_inputs() {
+            section_inputs.innerHTML += form_inputs(i);
+            i++;
+        }
+
+        function save_inputs_in_obj() {
+            for (let j = 0; j < i; j++) {
+                console.log()
+
+                obj[j] = {
+                    "name": document.getElementById('name-' + j).value,
+                    "family": document.getElementById('family-' + j).value,
+                    "check": document.getElementById('check-' + j).checked ? 'on' : 'off'
+                }
+            }
+        }
+
+        function process() {
+            save_inputs_in_obj();
+            console.table(obj);
+        }
+
+        // events
+
+        btn_add.addEventListener('click', add_inputs);
+        btn_log.addEventListener('click', process);
+    </script>
+
+
+</body>
+
+</html>
