@@ -8,25 +8,38 @@ server.listen(port);
 /* routing */
 
 class Route {
-    static routes;
- 
-    static get(route , callback) {
-         this.routes[route] = {
-             "method" : "get",
-             "callback" : callback
-         }
-     }
- 
-     static post(route , callback) {
-         this.routes[route] = {
-             "method" : "post",
-             "callback" : callback
-         }
-     }
- }
- 
-Route.get("fileUpload",() => console.log('irun'));
-Route.post("fileUpload",() => console.log('irun'));
+    static routes = [];
+
+    static execute(route, method) {
+        const matchedRoute = this.routes.find((recordedRoute) => {
+            return (
+                recordedRoute["route"] == route
+                &&
+                recordedRoute["method"].toLowerCase() == method.toLowerCase()
+            );
+        });
+        return (matchedRoute) ? matchedRoute["callback"]() : "route not found";
+    }
+
+    static get(route, callback) {
+        this.routes.push({
+            "route": route,
+            "method": "GET",
+            "callback": callback
+        });
+    }
+
+    static post(route, callback) {
+        this.routes.push({
+            "route": route,
+            "method": "POST",
+            "callback": callback
+        });
+    }
+}
+
+Route.get("route", () => 'i.run.in.get');
+Route.post("route", () => 'i.run.in.post');
 
 console.log(Route.routes);
 
@@ -38,20 +51,25 @@ const headers = {
 function rh(req, res) {
     const url = req.url;
     const fp = url.split('/')[1];
+    const method = req.method;
     let result;
 
-    if (fp !== 'favicon.ico' && routes[fp] instanceof Function) {
-        let data = '';
-        req.on('data', chunk => {
-            data += chunk;
-        }).on('end', () => {
-            try {
-                result = routes[fp](req, data);
-            } catch (err) {
-                console.log('Err : ', err);
-            }
-        });
-    }
+    result = Route.execute(fp, method);
+    console.log(result);
+    res.write(result);
+
+    // let data = '';
+    // req.on('data', chunk => {
+    //     data += chunk ?? '';
+    // }).on('end', () => {
+    //     try {
+    //         result = Route.execute(fp, method);
+    //         res.write(result);
+    //         // result = routes[fp](req, data);
+    //     } catch (err) {
+    //         console.log('Err : ', err);
+    //     }
+    // });
 
     res.end();
 }
