@@ -1,9 +1,8 @@
 
 const fs = require('fs');
 const http = require('http');
-const axios = require('axios');
 const insertToFile = require('./inserttofile');
-const port = 8585;
+const port = 8586;
 const server = http.createServer(rh);
 server.listen(port);
 
@@ -40,12 +39,6 @@ class Route {
     }
 }
 
-Route.get("file", insertToFile.showFile);
-Route.post("file", insertToFile.fileAppend);
-
-Route.get("route", function (req, res) { return 'i run in get' });
-Route.post("route", (req, res) => 'i run in post');
-
 Route.post("call", call);
 
 console.log(Route.routes);
@@ -68,6 +61,7 @@ function rh(req, res) {
         try {
             result = Route.execute(fp, method);
             if (result instanceof Function) {
+                console.log(result);
                 res.writeHead(200, headers.text);
                 res.write(result(req, data));
                 res.end();
@@ -77,19 +71,9 @@ function rh(req, res) {
         } catch (err) {
             console.log('Err : ', err);
         }
-        res.end();
     });
 }
 
 function call(req, data) {
-    let result = axios.post('http://localhost:8586/call', data)
-        .then((res) => {
-            console.log(res);
-            return "ahmad - " + Math.floor(Math.random() * 100);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-    return result;
+    return JSON.stringify(data);
 }
