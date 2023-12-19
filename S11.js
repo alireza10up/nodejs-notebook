@@ -69,8 +69,23 @@ function rh(req, res) {
             result = Route.execute(fp, method);
             if (result instanceof Function) {
                 res.writeHead(200, headers.text);
-                res.write(result(req, data));
-                res.end();
+
+
+                result(req, data,res)
+                .then((res) => {
+                    console.log('vasati res.data', res.data);
+                     
+
+                    console.log("vasati call res")
+                    res.write("ahmad - " + Math.floor(Math.random() * 100));
+                    res.end();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+                
+                
             } else {
                 res.write(result);
             }
@@ -81,15 +96,9 @@ function rh(req, res) {
     });
 }
 
-function call(req, data) {
+function call(req, data , res) {
     let result = axios.post('http://localhost:8586/call', data)
-        .then((res) => {
-            console.log(res);
-            return "ahmad - " + Math.floor(Math.random() * 100);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        
 
     return result;
 }
