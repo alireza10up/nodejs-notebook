@@ -61,7 +61,26 @@ function showFile() {
 		});
 }
 
+function loadFile(filename) {
+	return new Promise((resolve, reject) => {
+		fs.readFile(filename, 'utf-8', (err, data) => {
+			if (err) {
+				if (err.code === 'ENOENT') {
+					resolve('');
+				} else {
+					reject(err);
+				}
+			} else {
+				try {
+					resolve(data);
+				} catch (parseErr) {
+					reject(parseErr);
+				}
+			}
+		});
+	});}
 
 exports.fileAppend = fileAppend;
 exports.showFile = showFile;
 exports.insertToFile = insertToFile;
+exports.loadFile = loadFile;
