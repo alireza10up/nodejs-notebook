@@ -18,7 +18,7 @@ class Route {
                 recordedRoute["method"].toLowerCase() == method.toLowerCase()
             );
         });
-        return (matchedRoute) ? matchedRoute["callback"]() : "route not found";
+        return (matchedRoute) ? matchedRoute["callback"] : "route not found";
     }
 
     static get(route, callback) {
@@ -38,8 +38,11 @@ class Route {
     }
 }
 
-Route.get("route", () => 'i.run.in.get');
-Route.post("route", () => 'i.run.in.post');
+Route.get("file", fileUpload);
+Route.post("file", showFile);
+
+Route.get("route", (req,res) => 'i run in get' );
+Route.post("route",  (req,res) => 'i run in post');
 
 console.log(Route.routes);
 
@@ -55,8 +58,11 @@ function rh(req, res) {
     let result;
 
     result = Route.execute(fp, method);
-    console.log(result);
-    res.write(result);
+    if (result instanceof Function) {
+        res.write(result(req,res));
+    }else {
+        res.write(result);
+    }
 
     // let data = '';
     // req.on('data', chunk => {
@@ -103,8 +109,7 @@ function fileAppend(req, data) {
 function showFile(req, data) {
     return fs.readFile('file.txt', function (err, dataFile) {
         if (err) return 'file not found !';
-        let writeData = JSON.parse(dataFile);
-        writeData.data.push(JSON.parse(data));
-        insertToFile(req, JSON.stringify(writeData));
+        console.log(dataFile);
+        return dataFile;
     });
 }
