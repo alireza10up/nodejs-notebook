@@ -61,7 +61,6 @@ function rh(req, res) {
         try {
             result = Route.execute(fp, method);
             if (result instanceof Function) {
-                console.log(result);
                 res.writeHead(200, headers.text);
                 res.write(result(req, data));
                 res.end();
@@ -75,5 +74,6 @@ function rh(req, res) {
 }
 
 function call(req, data) {
+    console.log(data);
     return JSON.stringify(data);
 }
