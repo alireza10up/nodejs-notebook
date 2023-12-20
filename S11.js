@@ -66,7 +66,7 @@ function rh(req, res) {
 			if (result instanceof Function) {
 				res.writeHead(200, headers.text);
 				const remoteDataPromise = await result(req, data);
-				res.write(remoteDataPromise.data);
+				res.write(remoteDataPromise.data ? remoteDataPromise.data : remoteDataPromise);
 				res.end();
 			} else {
 				res.write(result);
