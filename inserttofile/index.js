@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function insertToFile(req, data) {
-	fs.writeFile('file.txt', data, 'utf-8', err => {
+	fs.writeFile('database.txt', data, 'utf-8', err => {
 		if (err) {
 			console.log('err : ', err);
 		} else {
@@ -11,7 +11,7 @@ function insertToFile(req, data) {
 }
 
 function fileAppend(req, data) {
-	fs.readFile('file.txt', 'utf-8', function (err, dataFile) {
+	fs.readFile('database.txt', 'utf-8', function (err, dataFile) {
 		if (err) {
 			console.log('file not found');
 		} else {
@@ -23,7 +23,7 @@ function fileAppend(req, data) {
 }
 
 function showFile(req, data) {
-	return fs.readFile('file.txt', 'utf-8', function (err, dataFile) {
+	return fs.readFile('database.txt', 'utf-8', function (err, dataFile) {
 		if (err) {
 			return 'file not found !';
 		}
