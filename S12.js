@@ -81,17 +81,19 @@ Route.post('sign_in', async (req, res, data) => {
 	}
 });
 
-Route.get('cookie', async (req, res) => {
+Route.get('userInfo', async (req, res) => {
 	const token = req.headers.cookie ?? "empty";
-	console.log(token);
+
 	try {
 		const userData = await jwt.verify(token, saltSecurity);
-		console.log(userData);
 
 		if (userData) {
-			res.write('User is logged in');
+			return `User is logged in :
+			 name : ${userData.name}
+			 email : ${userData.email}
+			 pass : ${userData.pass}`;
 		} else {
-			res.write('User is not logged in');
+			return 'User is not logged in';
 		}
 	} catch (error) {
 		console.error('Error validating token:', error);
