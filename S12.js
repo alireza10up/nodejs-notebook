@@ -45,27 +45,29 @@ Route.post('sign_up', async (req, res, data) => {
 Route.post('sign_in', async (req, res, data) => {
 	// Validate JSON data
 	const dataJson = await Promise.resolve(JSON.parse(data));
-	if (dataJson.name === undefined || dataJson.email === undefined || dataJson.pass === undefined) {
+	const {name, email, pass} = dataJson;
+	if (name === undefined || email === undefined || pass === undefined) {
 		console.log('Data Not Valid');
 		return 'Data Not Valid';
 	}
 
 	try {
 		const users = await insertToFile.showFile();
-		console.log(users);
-		users.then((data) => {
-			console.log(data);
-		});
+		let found = false;
+
 		for (let user of users) {
-			console.log(user);
+			if (name === user.name && email === user.email && pass === user.pass) {
+				found = user;
+			}
 		}
 
-		if (users) {
-			const token = await jwt.sign(user, saltSecurity);
-			res.writeHead(200, {'Set-Cookie': token, 'Content-Type': 'text/plain'});
-			res.write('user found !');
+		if (found) {
+			const token = await jwt.sign(found, saltSecurity);
+			res.setHeader('Content-Type', 'text/html');
+			res.setHeader('Set-Cookie', token);
+			return 'user found !';
 		} else {
-			res.write('user not found !');
+			return 'user not found !';
 		}
 	} catch (error) {
 		console.error('Error processing request:', error);
@@ -107,9 +109,14 @@ function rh(req, res) {
 		try {
 			result = Route.execute(fp, method);
 			if (result instanceof Function) {
-				res.writeHead(200, headers.text);
+				// call controller func
 				result = result(req, res, data);
+				// handle request
 				result.then((data) => {
+					// set header default
+					if (!res.hasHeader('Content-Type')) {
+						res.writeHead(200, {'Content-Type': 'text/plain'});
+					}
 					res.write(data.data !== undefined ? data.data : data);
 					res.end();
 				}).catch((e) => {
