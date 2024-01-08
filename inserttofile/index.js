@@ -1,35 +1,67 @@
 const fs = require('fs');
 
-function insertToFile(req, data) {
-	fs.writeFile('database.txt', data, 'utf-8', err => {
-		if (err) {
-			console.log('err : ', err);
-		} else {
-			console.log('file saved !');
-		}
+function insertToFile(data) {
+	return new Promise((resolve, reject) => {
+		fs.writeFile('database.txt', data, 'utf-8', (err) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(true);
+			}
+		});
 	});
 }
 
-function fileAppend(req, data) {
-	fs.readFile('database.txt', 'utf-8', function (err, dataFile) {
-		if (err) {
-			console.log('file not found');
-		} else {
-			let writeData = JSON.parse(dataFile);
-			writeData.data.push(JSON.parse(data));
-			return insertToFile(req, JSON.stringify(writeData));
-		}
+function readOrParseData(filename) {
+	return new Promise((resolve, reject) => {
+		fs.readFile(filename, 'utf-8', (err, data) => {
+			if (err) {
+				if (err.code === 'ENOENT') {
+					resolve('');
+				} else {
+					reject(err);
+				}
+			} else {
+				try {
+					resolve(JSON.parse(data));
+				} catch (parseErr) {
+					reject(parseErr);
+				}
+			}
+		});
 	});
 }
 
-function showFile(req, data) {
-	return fs.readFile('database.txt', 'utf-8', function (err, dataFile) {
-		if (err) {
-			return 'file not found !';
-		}
-		return dataFile;
-	});
+
+function fileAppend(data) {
+	return readOrParseData('database.txt')
+		.then((rdata) => {
+			const jsonData = rdata || {};
+			jsonData.data.push(JSON.parse(data));
+			const stringData = JSON.stringify(jsonData);
+			return this.insertToFile(stringData);
+		})
+		.catch(err => {
+			console.error('Error appending to file:', err);
+			return false;
+		});
 }
+
+function showFile() {
+	return readOrParseData('database.txt')
+		.then((data) => {
+			if (!data) {
+				return 'empty file';
+			}
+			return data.data;
+		})
+		.catch(err => {
+			console.error('Error reading file:', err);
+			return 'file not found';
+		});
+}
+
 
 exports.fileAppend = fileAppend;
 exports.showFile = showFile;
+exports.insertToFile = insertToFile;
