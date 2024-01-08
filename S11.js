@@ -6,6 +6,10 @@ const port = 8585;
 const server = http.createServer(rh);
 server.listen(port);
 
+/* server run notify */
+
+console.log('server run on :'+`http://localhost:${port}`);
+
 /* routing */
 
 class Route {
@@ -45,7 +49,7 @@ Route.post("route", (req, res) => 'i run in post');
 
 Route.post("call", call);
 
-console.log(Route.routes);
+console.log('route available : '+Route.routes);
 
 const headers = {
 	text: {'Content-Type': 'text/plain'}, html: {"Content-Type": "text/html"},
