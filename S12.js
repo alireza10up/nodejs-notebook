@@ -21,10 +21,15 @@ const headers = {
 	text: {'Content-Type': 'text/plain'}, html: {"Content-Type": "text/html"},
 };
 
+const types = {
+	text: 'text/plain', html: 'text/html'
+}
+
 /* register routes */
 
 Route.post('sign_up', async (req, res, data) => {
 	// Validate JSON data
+	data = data ? data : '{}';
 	const dataJson = await Promise.resolve(JSON.parse(data));
 	if (!dataJson.name || !dataJson.email || !dataJson.pass) {
 		console.log('Data Not Valid');
@@ -44,6 +49,7 @@ Route.post('sign_up', async (req, res, data) => {
 
 Route.post('sign_in', async (req, res, data) => {
 	// Validate JSON data
+	data = data ? data : '{}';
 	const dataJson = await Promise.resolve(JSON.parse(data));
 	const {name, email, pass} = dataJson;
 	if (name === undefined || email === undefined || pass === undefined) {
@@ -63,7 +69,7 @@ Route.post('sign_in', async (req, res, data) => {
 
 		if (found) {
 			const token = await jwt.sign(found, saltSecurity);
-			res.setHeader('Content-Type', 'text/html');
+			res.setHeader('Content-Type', types.text);
 			res.setHeader('Set-Cookie', token);
 			return 'user found !';
 		} else {
@@ -76,8 +82,8 @@ Route.post('sign_in', async (req, res, data) => {
 });
 
 Route.get('cookie', async (req, res) => {
-	const token = req.headers.cookie;
-
+	const token = req.headers.cookie ?? "empty";
+	console.log(token);
 	try {
 		const userData = await jwt.verify(token, saltSecurity);
 		console.log(userData);
@@ -115,7 +121,7 @@ function rh(req, res) {
 				result.then((data) => {
 					// set header default
 					if (!res.hasHeader('Content-Type')) {
-						res.writeHead(200, {'Content-Type': 'text/plain'});
+						res.writeHead(200, {'Content-Type': types.text});
 					}
 					res.write(data.data !== undefined ? data.data : data);
 					res.end();
