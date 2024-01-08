@@ -2,5 +2,16 @@
   "dependencies": {
     "axios": "^1.6.2",
     "jsonwebtoken": "^9.0.2"
-  }
+  },
+  "name": "route-module",
+  "description": "Web design Class - University Montazery",
+  "version": "1.0.0",
+  "main": "client.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "alireza10up",
+  "license": "ISC"
 }

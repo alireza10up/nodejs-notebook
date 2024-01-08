@@ -2,6 +2,7 @@ const fs = require('fs');
 const http = require('http');
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
+const Route = require('./router');
 const insertToFile = require('./inserttofile');
 const port = 8585;
 const server = http.createServer(rh);
@@ -10,35 +11,6 @@ server.listen(port);
 /* server run notify */
 
 console.log('server run on :', `http://localhost:${port}`);
-
-/* routing */
-
-class Route {
-	static routes = [];
-
-	static execute(route, method) {
-		const matchedRoute = this.routes.find((recordedRoute) => {
-			return (
-				recordedRoute["route"] == route && recordedRoute["method"].toLowerCase() == method.toLowerCase()
-			);
-		});
-		return (
-			matchedRoute
-		) ? matchedRoute["callback"] : "route not found";
-	}
-
-	static get(route, callback) {
-		this.routes.push({
-			"route": route, "method": "GET", "callback": callback
-		});
-	}
-
-	static post(route, callback) {
-		this.routes.push({
-			"route": route, "method": "POST", "callback": callback
-		});
-	}
-}
 
 Route.post('sign_up', (req, data) => {
 	// validation
