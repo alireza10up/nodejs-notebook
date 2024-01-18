@@ -1,0 +1,80 @@
+:root {
+    --color1: #282c34;
+    --color2: #ffffff;
+    --color3: #ff0000;
+    --color4: #42b983;
+    --color5: #d8e2dc;
+}
+
+@font-face {
+    font-family: kalame;
+    src: url(../fonts/Kalameh.ttf);
+}
+
+/* login stlye */
+
+.login-form {
+    max-width: 300px;
+    background: var(--color2);
+    margin: 5rem auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.head-login {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.head-login img {
+    width: 125px;
+}
+
+.notebook-title {
+    font-family: kalame;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--color3);
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color5);
+    border-radius: 5px;
+}
+
+.button {
+    background: var(--color4);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: var(--color3);
+    color: var(--color2);
+}
+
+.link {
+    display: block;
+    margin: 15px 0;
+}
