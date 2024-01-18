@@ -5,179 +5,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Of Notes</title>
-
-    <style>
-        :root {
-            --color1: #ffffff;
-            --color2: #282c34;
-            --color3: #ff0000;
-            --color4: #42b983;
-            --color5: #d8e2dc;
-        }
-
-        @font-face {
-            font-family: kalame;
-            src: url(../fonts/Kalameh.ttf);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* profile stlye */
-
-        .profile-section {
-            margin: 20px 0;
-            border: 1px solid var(--color5);
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-title {
-            font-family: kalame;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--color3);
-            margin-bottom: 10px;
-        }
-
-        .profile-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .profile-name {
-            font-family: kalame;
-            font-size: 18px;
-            color: var(--color3);
-            margin-bottom: 10px;
-        }
-
-        .profile-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .profile-button:hover {
-            background: var(--color4);
-            color: white;
-        }
-
-        /* sections notes stlye */
-
-        .sections-notes-section {
-            margin: 20px 0;
-            background: var(--color2);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .sections-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .sections-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .notes-item {
-            margin-bottom: 10px;
-        }
-
-        .notes-title {
-            font-family: kalame;
-            font-size: 18px;
-            color: var(--color3);
-            margin-bottom: 5px;
-        }
-
-        .notes-content {
-            font-size: 14px;
-            color: var(--color5);
-        }
-
-        /* creator stlye */
-
-        .creator-section {
-            margin: 20px 0;
-            border: 1px solid var(--color5);
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .creator-title {
-            font-family: kalame;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--color3);
-            margin-bottom: 10px;
-        }
-
-        .creator-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .creator-name {
-            font-family: kalame;
-            font-size: 18px;
-            color: var(--color3);
-            margin-bottom: 10px;
-        }
-
-        .creator-link {
-            font-size: 14px;
-            color: var(--color5);
-            margin-bottom: 20px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body>
-    <main>
+    <main class="list">
         <section class="profile-section">
-            <h2 class="profile-title">پروفایل</h2>
-            <div class="profile-info">
-                <h3 class="profile-name">نام کاربری</h3>
-                <button class="profile-button">خروج</button>
+            <div class="item">
+                <h2 class="profile-title">profile</h2>
+                <div class="profile-info">
+                    <h3 class="profile-name">welcome <span id="user-name">alireza10up</span></h3>
+                </div>
+            </div>
+            <div class="item">
+                <h2 class="profile-title">Info</h2>
+                <div class="profile-info">
+                    <h3 class="profile-name">count notes : <span id="count-note">2</span></h3>
+                </div>
+            </div>
+            <div class="item">
+                <h2 class="profile-title">Your Join At</h2>
+                <div class="profile-info">
+                    <h3 class="profile-name">Time : <span id="count-note">2024/12/23</span></h3>
+                </div>
+            </div>
+            <div class="item">
+                <h2 class="profile-title">Exit </h2>
+                <div class="profile-info">
+                    <button class="profile-button">exit</button>
+                </div>
             </div>
         </section>
 
         <section class="sections-notes-section">
             <header class="sections-header">
-                <h2>بخش‌ها</h2>
-                <button>+ بخش جدید</button>
+                <h2>notes</h2>
+                <button class="button button-add-note">new note +</button>
             </header>
-            <ul class="sections-list">
+            <ol class="sections-list">
+                <!-- add note -->
+                <form class="hidden">
+                    <div class="input-group">
+                        <input type="text" id="input-title" placeholder="Enter Title">
+                    </div>
+                    <div class="input-group">
+                        <textarea name="content" id="input-content" cols="30" rows="10"></textarea>
+                    </div>
+                    <button class="button" type="submit">Submit Note</button>
+                </form>
+                <!-- notes -->
                 <li class="notes-item">
-                    <h3 class="notes-title">بخش اول</h3>
-                    <p class="notes-content">این یک یادداشت در بخش اول است.</p>
-                </li>
-                <li class="notes-item">
-                    <h3 class="notes-title">بخش دوم</h3>
-                    <p class="notes-content">این یک یادداشت در بخش دوم است.</p>
-                </li>
-            </ul>
-        </section>
+                    <div class="content">
+                        <h3 class="notes-title">note title</h3>
+                        <p class="notes-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+                            laboriosam
+                            ex facilis sapiente similique facere minima, dicta non ipsam incidunt cupiditate commodi
+                            aliquid
+                            dolore deleniti, nulla quaerat consectetur error voluptate.</p>
 
-        <section class="creator-section">
-            <h2 class="creator-title">سازنده</h2>
-            <div class="creator-info">
-                <h3 class="creator-name">نام سازنده</h3>
-                <a class="creator-link" href="#">وب‌سایت سازنده</a>
-            </div>
+                    </div>
+                    <div class="actions">
+                        <button class="button button-delete">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+                        </button>
+                        <button class="button button-edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-pen" viewBox="0 0 16 16">
+                                <path
+                                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+                <!-- if empty -->
+                <h5 class="nothing hidden">nothing here</h5>
+            </ol>
         </section>
     </main>
 </body>

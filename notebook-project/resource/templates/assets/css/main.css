@@ -1,8 +1,8 @@
 :root {
     --color1: #282c34;
     --color2: #ffffff;
-    --color3: #ff0000;
-    --color4: #42b983;
+    --color3: orange;
+    --color4: #42a7b9;
     --color5: #d8e2dc;
 }
 
@@ -15,6 +15,32 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: kalame;
+    font-size: 2.4em;
+}
+
+.nothing {
+    color: var(--color3);
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+body {
+    background-color: var(--color3);
 }
 
 /* auth stlye */
@@ -58,7 +84,7 @@
     margin-bottom: 10px;
 }
 
-.input-group input {
+.input-group :where(input, textarea) {
     width: 100%;
     padding: 10px;
     border: 1px solid var(--color5);
@@ -83,4 +109,128 @@
 .link {
     display: block;
     margin: 15px 0;
+}
+
+/* list stle */
+
+.list {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* profile stlye */
+
+.profile-section {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background-color: var(--color2);
+}
+
+.profile-title {
+    font-family: kalame;
+    font-weight: bold;
+    color: var(--color3);
+    margin-bottom: 10px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-name {
+    font-family: kalame;
+    font-size: 18px;
+    color: var(--color3);
+    margin-bottom: 10px;
+}
+
+.profile-info span {
+    color: var(--color4);
+}
+
+.profile-button {
+    padding: 5px 10px ;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile-button:hover {
+    background: var(--color4);
+    color: white;
+}
+
+/* sections notes stlye */
+
+.sections-notes-section {
+    margin: 20px auto;
+    background: var(--color2);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sections-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button-add-note:hover {
+    background-color: #d8e2dc;
+    color: #282c34;
+}
+
+.sections-list {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.notes-item {
+    margin-bottom: 10px;
+    display: flex;
+    padding: 5px;
+    border: 1px solid var(--color5) ;
+    border-radius: 5px;
+}
+
+.notes-item .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.button-delete {
+    background-color: var(--color5);
+    color: var(--color1);
+}
+
+.button-edit {
+    background-color: var(--color5);
+    color: var(--color1);
+}
+
+.button-edit:hover {
+    background-color: var(--color4);
+}
+
+.notes-title {
+    font-family: kalame;
+    color: var(--color3);
+    margin-bottom: 5px;
+}
+
+.notes-content {
+    color: var(--color1);
 }
