@@ -11,10 +11,16 @@
     src: url(../fonts/Kalameh.ttf);
 }
 
-/* login stlye */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-.login-form {
-    max-width: 300px;
+/* auth stlye */
+
+.auth-form {
+    max-width: 360px;
     background: var(--color2);
     margin: 5rem auto;
     padding: 20px;
@@ -30,14 +36,14 @@
     width: 100%;
 }
 
-.head-login {
+.head-auth {
     margin-bottom: 20px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.head-login img {
+.head-auth img {
     width: 125px;
 }
 

@@ -1,11 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Of Notes</title>
+
+    <style>
+        :root {
+            --color1: #ffffff;
+            --color2: #282c34;
+            --color3: #ff0000;
+            --color4: #42b983;
+            --color5: #d8e2dc;
+        }
+
+        @font-face {
+            font-family: kalame;
+            src: url(../fonts/Kalameh.ttf);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* profile stlye */
+
+        .profile-section {
+            margin: 20px 0;
+            border: 1px solid var(--color5);
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-title {
+            font-family: kalame;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color3);
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-name {
+            font-family: kalame;
+            font-size: 18px;
+            color: var(--color3);
+            margin-bottom: 10px;
+        }
+
+        .profile-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-button:hover {
+            background: var(--color4);
+            color: white;
+        }
+
+        /* sections notes stlye */
+
+        .sections-notes-section {
+            margin: 20px 0;
+            background: var(--color2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sections-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sections-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notes-item {
+            margin-bottom: 10px;
+        }
+
+        .notes-title {
+            font-family: kalame;
+            font-size: 18px;
+            color: var(--color3);
+            margin-bottom: 5px;
+        }
+
+        .notes-content {
+            font-size: 14px;
+            color: var(--color5);
+        }
+
+        /* creator stlye */
+
+        .creator-section {
+            margin: 20px 0;
+            border: 1px solid var(--color5);
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .creator-title {
+            font-family: kalame;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color3);
+            margin-bottom: 10px;
+        }
+
+        .creator-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .creator-name {
+            font-family: kalame;
+            font-size: 18px;
+            color: var(--color3);
+            margin-bottom: 10px;
+        }
+
+        .creator-link {
+            font-size: 14px;
+            color: var(--color5);
+            margin-bottom: 20px;
+        }
+    </style>
+
 </head>
+
 <body>
-    
+    <main>
+        <section class="profile-section">
+            <h2 class="profile-title">پروفایل</h2>
+            <div class="profile-info">
+                <h3 class="profile-name">نام کاربری</h3>
+                <button class="profile-button">خروج</button>
+            </div>
+        </section>
+
+        <section class="sections-notes-section">
+            <header class="sections-header">
+                <h2>بخش‌ها</h2>
+                <button>+ بخش جدید</button>
+            </header>
+            <ul class="sections-list">
+                <li class="notes-item">
+                    <h3 class="notes-title">بخش اول</h3>
+                    <p class="notes-content">این یک یادداشت در بخش اول است.</p>
+                </li>
+                <li class="notes-item">
+                    <h3 class="notes-title">بخش دوم</h3>
+                    <p class="notes-content">این یک یادداشت در بخش دوم است.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="creator-section">
+            <h2 class="creator-title">سازنده</h2>
+            <div class="creator-info">
+                <h3 class="creator-name">نام سازنده</h3>
+                <a class="creator-link" href="#">وب‌سایت سازنده</a>
+            </div>
+        </section>
+    </main>
 </body>
+
 </html>
