@@ -1,13 +1,9 @@
-/*
-* routes (login , register , lists)
-* request handler (validation)
-*/
-
 /* packages */
 
 const fs = require('fs');
 const http = require('http');
-const router = require('./core/router');
+const Router = require('./core/router');
+const Database = require("./core/database");
 
 /* Run Server */
 
@@ -29,24 +25,64 @@ const types = {
 
 /* Register Routes */
 
-router.get('login', async (req, res, data) => {
-	return 'get login';
+Router.get('login', async (req, res, data) => {
+	const database = new Database('users');
+
+	// add item
+	database.addItem({
+		name: 'John Doe',
+		email: 'johndoe@example.com',
+		password: '123456',
+		time: Date.now()
+	});
+	database.addItem({
+		name: 'John Doe',
+		email: 'johnsdafe@example.com',
+		password: '123456',
+		time: Date.now()
+	});
+	database.addItem({
+		name: 'John Doe',
+		email: 'johse@example.com',
+		password: '123456',
+		time: Date.now()
+	});
+
+
+	console.log(database.getItem('johndoe@example.com'));
+
+	// check if item exists
+	const exists = database.itemExists('johndoe@example.com');
+
+	// remove item
+	// database.removeItem('johndoe@example.com');
+
+	// edit item
+	database.editItem('johndoe@example.com', {
+		name: 'Jane Doe',
+		family: 'ahmad'
+	});
+
+	// count items
+	const count = database.countItems();
+
+	return count + " " + exists;
 });
 
-router.post('login', async (req, res, data) => {
+Router.post('login', async (req, res, data) => {
 	return 1;
 });
 
-router.get('register', async (req, res, data) => {
+Router.get('register', async (req, res, data) => {
 	return 1;
 });
 
-router.post('register', async (req, res, data) => {
+Router.post('register', async (req, res, data) => {
 	return 1;
 });
 
 
-console.log('route available : ', router.routes);
+console.log('route available : ', Router.routes);
 
 /* Request Handler */
 
@@ -61,7 +97,7 @@ function rh(req, res) {
 	});
 	req.on('end', () => {
 		try {
-			let result = router.execute(fp, method);
+			let result = Router.execute(fp, method);
 			if (result instanceof Function) {
 				// call controller func
 				result = result(req, res, data);
