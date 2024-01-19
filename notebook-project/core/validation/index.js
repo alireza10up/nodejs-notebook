@@ -1,31 +1,35 @@
 class Validation {
-
 	static rules = {
-		required: (value) => value !== null && value !== undefined && value !== '',
-		minLength: (value, min) => value.length >= min,
-		maxLength: (value, max) => value.length <= max,
-		type: (value, type) => typeof value === type,
+		required: (value, more) => value !== null && value !== undefined && value !== '',
+		type: (value, expectedType) => typeof value === expectedType,
 		regex: (value, regex) => regex.test(value),
+		isEmail: (value, more) => /^\w+@\w+\.\w+$/.test(value),
+		minLength: (value, min) => value.length >= min,
 		oneOf: (value, values) => values.includes(value),
 	};
 
-	static validate(data, rules) {
-		for (const rule in rules) {
-			const value = data[rule];
-			const ruleFunc = rules[rule];
+	static validate(data, validationRules) {
+		const validatedData = {};
+		for (const key in validationRules) {
+			const value = data[key];
+			const rules = validationRules[key];
 
-			if (value === undefined) {
-				continue;
-			}
+			if (rules) {
+				for (const rule in rules) {
+					const ruleFunc = this.rules[rule];
 
-			if (!ruleFunc(value)) {
-				throw new Error(`${rule} validation failed for value ${value}`);
+					if (!ruleFunc(value, rules[rule])) {
+						throw new Error(`${key} validation failed for value ${value} error: ${rule}`);
+					} else {
+						validatedData[key] = value;
+						break;
+					}
+				}
 			}
 		}
 
-		return data;
+		return validatedData;
 	}
-
 }
 
 module.exports = Validation;
