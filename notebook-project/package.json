@@ -1,0 +1,14 @@
+{
+  "name": "notebook-project",
+  "version": "1.0.0",
+  "description": "* authentication (jwt)\r * crud todo\r * crud note",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "alireza10up",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}

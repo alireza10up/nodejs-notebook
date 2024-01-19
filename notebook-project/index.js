@@ -4,6 +4,7 @@ const fs = require('fs');
 const http = require('http');
 const Router = require('./core/router');
 const Database = require("./core/database");
+const Auth = require("./core/auth");
 
 /* Run Server */
 
@@ -12,8 +13,6 @@ const server = http.createServer(rh);
 server.listen(port);
 
 /* Variables */
-
-const saltSecurity = "=//Abs:sldfjnavioierrfeawrj:256";
 
 const headers = {
 	text: {'Content-Type': 'text/plain'}, html: {"Content-Type": "text/html"},
