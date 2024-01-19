@@ -49,3 +49,5 @@ class Auth {
 		return jwt.decode(token, this.secret);
 	}
 }
+
+module.exports = Auth;
