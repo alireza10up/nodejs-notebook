@@ -21,10 +21,9 @@ const types = {
 };
 
 Router.get('login', async (req, res, data) => {
-	const database = new Database('users');
-	database.addItem({
-		name: 'John Doe', email: 'johndoe@example.com', password: '123456', time: Date.now()
-	});
+	// Load Template
+	res.setHeader('Content-Type', headers.html);
+	return Utilities.template('login');
 });
 
 Router.post('login', async (req, res, data) => {
@@ -32,16 +31,21 @@ Router.post('login', async (req, res, data) => {
 });
 
 Router.get('register', async (req, res, data) => {
+	// Load Template
 	res.setHeader('Content-Type', headers.html);
 	return Utilities.template('register');
 });
 
 Router.post('register', async (req, res, data) => {
+	// Load Database And Sync With Auth Service
 	const database = new Database('users');
 	Auth.users = database.database;
 
 	try {
+		// Get Data
 		data = JSON.parse(data);
+
+		// Validation
 		const validationRules = {
 			email: {
 				required: true, type: 'string', isEmail: /^\w+@\w+\.\w+$/,
@@ -64,13 +68,30 @@ Router.post('register', async (req, res, data) => {
 			name: data.name, email: data.email, pass: data.pass, time: Date.now()
 		});
 
+		// Create token And Set In To Cookie
 		const token = await Auth.generateToken(data.email);
 
 		res.setHeader('Set-Cookie', token);
+
+		// Response
 		return JSON.stringify({status: true, message: 'User registered successfully'});
 	} catch (error) {
 		return JSON.stringify({status: false, message: error.message});
 	}
+});
+
+Router.get('list', async (req, res, data) => {
+	// Load Template
+	res.setHeader('Content-Type', headers.html);
+	return Utilities.template('list');
+});
+
+Router.post('add_note', async (req, res, data) => {
+	return 'notes';
+});
+
+Route.get('notes', async (req, res, data) => {
+	return 'notes';
 });
 
 console.log('Routes available:', Router.routes);
