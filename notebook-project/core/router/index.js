@@ -1,3 +1,5 @@
+const {page404} = require("../utilities");
+
 class Route {
 	static routes = [];
 
@@ -9,7 +11,7 @@ class Route {
 		});
 		return (
 			matchedRoute
-		) ? matchedRoute["callback"] : "route not found";
+		) ? matchedRoute["callback"] : page404();
 	}
 
 	static get(route, callback) {

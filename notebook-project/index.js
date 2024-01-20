@@ -4,6 +4,7 @@ const Router = require('./core/router');
 const Database = require("./core/database");
 const Auth = require("./core/auth");
 const Validator = require('./core/validation');
+const Utilities = require('./core/utilities');
 
 const port = 8585;
 const server = http.createServer(rh);
@@ -31,8 +32,8 @@ Router.post('login', async (req, res, data) => {
 });
 
 Router.get('register', async (req, res, data) => {
-	// Placeholder for future logic
-	return 'Registration form goes here';
+	res.setHeader('Content-Type', headers.html);
+	return Utilities.template('register');
 });
 
 Router.post('register', async (req, res, data) => {
@@ -79,34 +80,40 @@ function rh(req, res) {
 	const fp = url.split('/')[1];
 	const method = req.method;
 
-	let data = '';
-	req.on('data', chunk => {
-		data += chunk ?? '';
-	});
+	if (fp === 'assets') {
+		let data = Utilities.assets(url);
+		res.write(data);
+		res.end();
+	} else {
+		let data = '';
+		req.on('data', chunk => {
+			data += chunk ?? '';
+		});
 
-	req.on('end', () => {
-		try {
-			let result = Router.execute(fp, method);
-			if (result instanceof Function) {
-				result = result(req, res, data);
+		req.on('end', () => {
+			try {
+				let result = Router.execute(fp, method);
+				if (result instanceof Function) {
+					result = result(req, res, data);
 
-				result.then((data) => {
-					if (!res.hasHeader('Content-Type')) {
-						res.setHeader('Content-Type', types.json);
-					}
-					res.write(data instanceof Object ? JSON.stringify(data) : data);
+					result.then((data) => {
+						if (!res.hasHeader('Content-Type')) {
+							res.setHeader('Content-Type', types.json);
+						}
+						res.write(data instanceof Object ? JSON.stringify(data) : data);
+						res.end();
+					}).catch((e) => {
+						console.log(e);
+						res.end();
+					});
+				} else {
+					res.write(result);
 					res.end();
-				}).catch((e) => {
-					console.log(e);
-					res.end();
-				});
-			} else {
-				res.write(result);
+				}
+			} catch (err) {
+				console.log('Err : ', err);
 				res.end();
 			}
-		} catch (err) {
-			console.log('Err : ', err);
-			res.end();
-		}
-	});
+		});
+	}
 }
