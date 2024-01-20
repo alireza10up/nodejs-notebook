@@ -90,7 +90,7 @@ Router.post('add_note', async (req, res, data) => {
 	return 'notes';
 });
 
-Route.get('notes', async (req, res, data) => {
+Router.get('notes', async (req, res, data) => {
 	return 'notes';
 });
 
