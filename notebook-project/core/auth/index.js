@@ -13,13 +13,23 @@ class Auth {
 	}
 
 	static can(token) {
-		const user = this.users[this.decodeToken(token)];
+		const user = this.users[this.decodeToken(token).email];
 
 		if (!user) {
 			return false;
 		}
 
 		return true;
+	}
+
+	static getCurrentUser(token) {
+		const user = this.users[this.decodeToken(token).email];
+
+		if (!user) {
+			return false;
+		}
+
+		return user;
 	}
 
 	static userExits(email) {

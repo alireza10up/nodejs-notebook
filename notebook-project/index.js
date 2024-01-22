@@ -57,11 +57,13 @@ Router.post('login', async (req, res, data) => {
 			// Response
 			return JSON.stringify({status: true, message: 'You have successfully logged in'});
 		} else {
+			res.statusCode = 403;
 			return JSON.stringify({
 				status: false, message: 'The information entered is incorrect or the user does not exist'
 			});
 		}
 	} catch (error) {
+		res.statusCode = 400;
 		return JSON.stringify({status: false, message: error.message});
 	}
 });
@@ -96,6 +98,7 @@ Router.post('register', async (req, res, data) => {
 
 		// Check User Exits
 		if (Auth.userExits(data.email)) {
+			res.statusCode = 403;
 			return JSON.stringify({status: false, message: 'User already exists'});
 		}
 
@@ -110,8 +113,10 @@ Router.post('register', async (req, res, data) => {
 		res.setHeader('Set-Cookie', token);
 
 		// Response
+		res.statusCode = 201;
 		return JSON.stringify({status: true, message: 'User registered successfully'});
 	} catch (error) {
+		res.statusCode = 400;
 		return JSON.stringify({status: false, message: error.message});
 	}
 });
@@ -123,7 +128,49 @@ Router.get('list', async (req, res, data) => {
 });
 
 Router.post('add_note', async (req, res, data) => {
-	return 'notes';
+	// Load Note Database
+	const noteDatabase = new Database('notes');
+	// Load Database And Sync With Auth Service
+	const database = new Database('users');
+	Auth.users = database.database;
+
+	// Check User Can
+	const token = req.headers.cookie ?? '';
+	if (!Auth.can(token)) {
+		res.statusCode = 403;
+		return JSON.stringify({status: false, message: 'Your Session Not Valid Please Again Login !'});
+	}
+
+	// Get User Login
+	const user = Auth.getCurrentUser(token);
+
+	try {
+		// Get Data
+		data = JSON.parse(data);
+
+		// Validation
+		const validationRules = {
+			title: {
+				required: true, type: 'string',
+			}, content: {
+				required: true, type: 'string',
+			}
+		};
+
+		data = Validator.validate(data, validationRules);
+
+		// Add Note In Database
+		noteDatabase.putItem({
+			email: user.email, title: data.title, content: data.content, time: Date.now()
+		});
+
+		// Response
+		res.statusCode = 201;
+		return JSON.stringify({status: true, message: 'Note Create successfully'});
+	} catch (error) {
+		res.statusCode = 400;
+		return JSON.stringify({status: false, message: error.message});
+	}
 });
 
 Router.get('notes', async (req, res, data) => {

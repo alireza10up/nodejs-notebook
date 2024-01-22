@@ -12,7 +12,11 @@ class Database {
 	loadDatabase() {
 		const path = `./${this.bucket}.json`;
 		const data = fs.readFileSync(path, 'utf-8');
-		this.database = JSON.parse(data);
+		try {
+			this.database = JSON.parse(data);
+		} catch (e) {
+			this.database = {};
+		}
 	}
 
 	itemExists(key) {
@@ -29,6 +33,20 @@ class Database {
 			data[item.email] = item;
 		} else {
 			data = {[item.email]: item};
+		}
+		fs.writeFileSync(`./${this.bucket}.json`, JSON.stringify(data, null, 2), 'utf-8');
+	}
+
+	putItem(item) {
+		let data = this.database;
+		if (data) {
+			if (data[item.email]) {
+				data[item.email].push(item);
+			} else {
+				data[item.email] = [item];
+			}
+		} else {
+			data = {[item.email]: [item]};
 		}
 		fs.writeFileSync(`./${this.bucket}.json`, JSON.stringify(data, null, 2), 'utf-8');
 	}
