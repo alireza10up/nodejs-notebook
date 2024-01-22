@@ -1,6 +1,7 @@
 # Notebook End Points
 
 ## login
+#### post : url/login
 ```json
 {
   "email" : "string",
@@ -9,6 +10,7 @@
 ```
 
 ## register
+#### post : url/register
 ```json
 {
   "name": "string",
@@ -18,6 +20,7 @@
 ```
 
 ## notes
+#### get : url/notes
 ```json 
 {
   "status": true,
@@ -38,6 +41,7 @@
 ```
 
 ## add note
+#### post : url/add_note
 ```json
 {
   "title" : "string",
@@ -45,7 +49,8 @@
 }
 ```
 
-## delete note
+## remove note
+#### post : url/remove_note
 ```json
 {
   "id" : "string"
