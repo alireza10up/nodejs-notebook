@@ -19,12 +19,17 @@ function login() {
 			// Check Response
 			if (data.status) {
 				// Redirect To Main Page
-				window.location.href = '/list';
+				Swal.fire({
+					icon: "success", title: data.message, text: 'you soon redirect ...'
+				});
+				setTimeout(() => {
+					window.location.href = '/list';
+
+				}, 5000);
 			} else {
 				// Show Error Message
 				Swal.fire({
-					icon: "error",
-					title: data.message,
+					icon: "error", title: data.message,
 				});
 			}
 		});
@@ -50,10 +55,18 @@ function register() {
 			// Check Response
 			if (data.status) {
 				// Redirect To Main Page
-				window.location.href = '/list';
+				Swal.fire({
+					icon: "success", title: data.message, text: 'you soon redirect ...'
+				});
+				setTimeout(() => {
+					window.location.href = '/list';
+
+				}, 5000);
 			} else {
 				// Show Error Message
-				alert(data.message);
+				Swal.fire({
+					icon: "error", title: data.message,
+				});
 			}
 		});
 }

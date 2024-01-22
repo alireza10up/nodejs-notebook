@@ -1,95 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Of Notes</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>List Of Notes</title>
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
-
 <body>
-    <main class="list">
-        <section class="profile-section">
-            <div class="item">
-                <h2 class="profile-title">profile</h2>
-                <div class="profile-info">
-                    <h3 class="profile-name">welcome <span id="user-name">alireza10up</span></h3>
-                </div>
-            </div>
-            <div class="item">
-                <h2 class="profile-title">Info</h2>
-                <div class="profile-info">
-                    <h3 class="profile-name">count notes : <span id="count-note">2</span></h3>
-                </div>
-            </div>
-            <div class="item">
-                <h2 class="profile-title">Your Join At</h2>
-                <div class="profile-info">
-                    <h3 class="profile-name">Time : <span id="count-note">2024/12/23</span></h3>
-                </div>
-            </div>
-            <div class="item">
-                <h2 class="profile-title">Exit </h2>
-                <div class="profile-info">
-                    <button class="profile-button">exit</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="sections-notes-section">
-            <header class="sections-header">
-                <h2>notes</h2>
-                <button class="button button-add-note">new note +</button>
-            </header>
-            <ol class="sections-list">
-                <!-- add note -->
-                <form class="hidden">
-                    <div class="input-group">
-                        <input type="text" id="input-title" placeholder="Enter Title">
-                    </div>
-                    <div class="input-group">
-                        <textarea name="content" id="input-content" cols="30" rows="10"></textarea>
-                    </div>
-                    <button class="button" type="submit">Submit Note</button>
-                </form>
-                <!-- notes -->
-                <li class="notes-item">
-                    <div class="content">
-                        <h3 class="notes-title">note title</h3>
-                        <p class="notes-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-                            laboriosam
-                            ex facilis sapiente similique facere minima, dicta non ipsam incidunt cupiditate commodi
-                            aliquid
-                            dolore deleniti, nulla quaerat consectetur error voluptate.</p>
-
-                    </div>
-                    <div class="actions">
-                        <button class="button button-delete">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                <path
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                            </svg>
-                        </button>
-                        <button class="button button-edit">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-pen" viewBox="0 0 16 16">
-                                <path
-                                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
-                            </svg>
-                        </button>
-                    </div>
-                </li>
-                <!-- if empty -->
-                <h5 class="nothing hidden">nothing here</h5>
-            </ol>
-        </section>
-    </main>
-    <script src="assets/js/sweetalert2.all.min.js"></script>
-    <script src="assets/js/main.js"></script>
+<main class="list">
+	<section class="profile-section">
+		<div class="item">
+			<h2 class="profile-title">profile</h2>
+			<div class="profile-info">
+				<h3 class="profile-name">welcome <span id="user-name">alireza10up</span></h3>
+			</div>
+		</div>
+		<div class="item">
+			<h2 class="profile-title">Info</h2>
+			<div class="profile-info">
+				<h3 class="profile-name">count notes : <span id="count-note">2</span></h3>
+			</div>
+		</div>
+		<div class="item">
+			<h2 class="profile-title">Your Join At</h2>
+			<div class="profile-info">
+				<h3 class="profile-name">Time : <span id="count-note">2024/12/23</span></h3>
+			</div>
+		</div>
+		<div class="item">
+			<h2 class="profile-title">Exit </h2>
+			<div class="profile-info">
+				<button class="profile-button">exit</button>
+			</div>
+		</div>
+	</section>
+	<section class="sections-notes-section">
+		<header class="sections-header">
+			<h2>notes</h2>
+			<button id="button_add_note" class="button button-add-note">new note +</button>
+		</header>
+		<ol class="sections-list">
+			<!-- add note -->
+			<form id="add_note_form" class="hidden">
+				<div class="input-group">
+					<input type="text" id="input-title" placeholder="Enter Title">
+				</div>
+				<div class="input-group">
+					<textarea name="content" id="input-content" cols="30" rows="10"></textarea>
+				</div>
+				<button class="button" type="submit">Submit Note</button>
+			</form>
+			<!-- notes -->
+			<li class="notes-item">
+				<div class="content">
+					<h3 class="notes-title">note title</h3>
+					<p class="notes-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+						laboriosam
+						ex facilis sapiente similique facere minima, dicta non ipsam incidunt cupiditate commodi
+						aliquid
+						dolore deleniti, nulla quaerat consectetur error voluptate.</p>
+				</div>
+				<div class="actions">
+					<button class="button button-delete">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						     class="bi bi-trash" viewBox="0 0 16 16">
+							<path
+									d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+							<path
+									d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+						</svg>
+					</button>
+					<button class="button button-edit">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+						     class="bi bi-pen" viewBox="0 0 16 16">
+							<path
+									d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+						</svg>
+					</button>
+				</div>
+			</li>
+			<!-- if empty -->
+			<h5 class="nothing hidden">nothing here</h5>
+		</ol>
+	</section>
+</main>
+<script src="assets/js/sweetalert2.all.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+	const add_note_btn = document.getElementById('button_add_note')
+	const add_note_form = document.getElementById('add_note_form');
+	add_note_btn.addEventListener('click', (e) => {
+		add_note_form.classList.toggle('hidden');
+	});
+</script>
 </body>
-
 </html>
