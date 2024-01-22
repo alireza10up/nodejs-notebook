@@ -19,7 +19,7 @@ class Validation {
 					const ruleFunc = this.rules[rule];
 
 					if (!ruleFunc(value, rules[rule])) {
-						throw new Error(`${key} validation failed for value ${value} error: ${rule}`);
+						throw new Error(`${key} validation failed ! error: ${rule}`);
 					} else {
 						validatedData[key] = value;
 						break;

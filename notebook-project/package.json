@@ -9,6 +9,7 @@
   "author": "alireza10up",
   "license": "MIT",
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "sweetalert": "^2.1.2"
   }
 }

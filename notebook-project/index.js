@@ -246,7 +246,7 @@ Router.post('remove_note', async (req, res, data) => {
 });
 
 Router.post('edit_note', async (req, res, data) => {
-	return 'notes';
+	return 'Not Implemented';
 });
 
 console.log('Routes available:', Router.routes);

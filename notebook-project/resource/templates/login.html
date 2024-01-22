@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
-
 <body>
-    <main class="auth-form">
-        <section class="container">
-            <div class="head-auth">
-                <img src="assets/imgs/logo-note-book.png" alt="logo note book">
-                <span class="notebook-title">notebook</span>
-            </div>
-            <form>
-                <div class="input-group">
-                    <input type="text" id="input-email" placeholder="Enter your email">
-                </div>
-                <div class="input-group">
-                    <input type="password" id="input-password" placeholder="Enter your password">
-                </div>
-                <button class="button" type="submit">Log In</button>
-                <a class="link" href="/register">You don't have an account? register</a>
-            </form>
-        </section>
-    </main>
+<main class="auth-form">
+	<section class="container">
+		<div class="head-auth">
+			<img src="assets/imgs/logo-note-book.png" alt="logo note book">
+			<span class="notebook-title">notebook</span>
+		</div>
+		<form id="form__login">
+			<div class="input-group">
+				<input type="text" id="input-email" placeholder="Enter your email">
+			</div>
+			<div class="input-group">
+				<input type="password" id="input-password" placeholder="Enter your password">
+			</div>
+			<button class="button" type="submit">Log In</button>
+			<a class="link" href="/register">You don't have an account? register</a>
+		</form>
+	</section>
+</main>
+<script src="assets/js/sweetalert2.all.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+	const form_login = document.getElementById('form__login');
+	form_login.addEventListener('submit', (e) => {
+		e.preventDefault();
+		login();
+	});
+</script>
 </body>
-
 </html>
