@@ -207,3 +207,8 @@ function note_handle(notes) {
 		});
 	}
 }
+
+function delete_cookies() {
+	document.cookie = 'clear';
+	window.location.reload();
+}

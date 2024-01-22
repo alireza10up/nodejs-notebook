@@ -30,7 +30,7 @@
 		<div class="item">
 			<h2 class="profile-title">Exit </h2>
 			<div class="profile-info">
-				<button class="profile-button">exit</button>
+				<button id="exit_btn" class="profile-button">exit</button>
 			</div>
 		</div>
 	</section>
@@ -52,7 +52,7 @@
 			</form>
 			<br>
 			<div id="notes_wrapper">
-			<!-- notes -->
+				<!-- notes -->
 			</div>
 			<!-- if empty -->
 			<h5 id="nothing" class="nothing hidden">nothing here</h5>
@@ -79,6 +79,12 @@
 	window.addEventListener('load', (e) => {
 		get_notes();
 	});
+
+	/* exit */
+	const exit_btn = document.getElementById('exit_btn');
+	exit_btn.addEventListener('click', (e) => {
+		delete_cookies();
+	})
 </script>
 </body>
 </html>
