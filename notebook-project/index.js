@@ -1,4 +1,3 @@
-const fs = require('fs');
 const http = require('http');
 const Router = require('./core/router');
 const Database = require("./core/database");
@@ -9,6 +8,8 @@ const Utilities = require('./core/utilities');
 const port = 8585;
 const server = http.createServer(rh);
 server.listen(port);
+
+console.log('Server is running on port:'+port);
 
 const headers = {
 	text: {'Content-Type': 'text/plain'},
@@ -27,7 +28,42 @@ Router.get('login', async (req, res, data) => {
 });
 
 Router.post('login', async (req, res, data) => {
-	// Validation and login logic here
+	// Load Database And Sync With Auth Service
+	const database = new Database('users');
+	Auth.users = database.database;
+
+	try {
+		// Get Data
+		data = JSON.parse(data);
+
+		// Validation
+		const validationRules = {
+			email: {
+				required: true, type: 'string', isEmail: /^\w+@\w+\.\w+$/,
+			}, pass: {
+				required: true, type: 'string', minLength: 8,
+			},
+		};
+
+		data = Validator.validate(data, validationRules);
+
+		// Check User Data
+		if (Auth.math(data)) {
+			// Create token And Set In To Cookie
+			const token = await Auth.generateToken(data.email);
+
+			res.setHeader('Set-Cookie', token);
+
+			// Response
+			return JSON.stringify({status: true, message: 'You have successfully logged in'});
+		} else {
+			return JSON.stringify({
+				status: false, message: 'The information entered is incorrect or the user does not exist'
+			});
+		}
+	} catch (error) {
+		return JSON.stringify({status: false, message: error.message});
+	}
 });
 
 Router.get('register', async (req, res, data) => {

@@ -4,6 +4,14 @@ class Auth {
 	static secret = '=//Abs:sldfjnavioierrfeawrj:256';
 	static users = {};
 
+	static math(data) {
+		let userFound = this.users[data.email];
+		if (userFound) {
+			return userFound.pass === data.pass;
+		}
+		return false;
+	}
+
 	static can(token) {
 		const user = this.users[this.decodeToken(token)];
 
