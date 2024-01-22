@@ -77,10 +77,14 @@ class Database {
 		}
 	}
 
-	countItems() {
+	countItems(isSub = false) {
 		const data = this.database;
 		if (data) {
-			return Object.keys(data).length;
+			if (!isSub) {
+				return Object.keys(data).length;
+			} else {
+				return data[isSub].length;
+			}
 		}
 		return 0;
 	}

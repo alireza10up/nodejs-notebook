@@ -174,7 +174,29 @@ Router.post('add_note', async (req, res, data) => {
 });
 
 Router.get('notes', async (req, res, data) => {
-	return 'notes';
+	// Load Note Database
+	const noteDatabase = new Database('notes');
+	// Load Database And Sync With Auth Service
+	const database = new Database('users');
+	Auth.users = database.database;
+
+	// Check User Can
+	const token = req.headers.cookie ?? '';
+	if (!Auth.can(token)) {
+		res.statusCode = 403;
+		return JSON.stringify({status: false, message: 'Your Session Not Valid Please Again Login !'});
+	}
+
+	// Get User Login
+	const user = Auth.getCurrentUser(token);
+
+	// Return All Notes
+	return JSON.stringify({
+		status: true,
+		message: 'done !',
+		data: [noteDatabase.getItem(user.email)],
+		count: noteDatabase.countItems(user.email)
+	});
 });
 
 console.log('Routes available:', Router.routes);
