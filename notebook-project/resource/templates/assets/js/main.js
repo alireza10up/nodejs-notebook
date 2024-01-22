@@ -107,8 +107,33 @@ function add_note() {
 		});
 }
 
-function remove_note() {
+function remove_note(note_id) {
+	// Create Data Object
+	const data = {
+		id: note_id
+	};
 
+	// Make A POST Request To The /notes Route
+	fetch('/remove_note', {
+		method: 'POST', body: JSON.stringify(data)
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			// Check Response
+			if (data.status) {
+				// Show Success Message
+				Swal.fire({
+					icon: "success", title: data.message
+				});
+				// Reload Notes
+				get_notes();
+			} else {
+				// Show Error Message
+				Swal.fire({
+					icon: "error", title: data.message,
+				});
+			}
+		});
 }
 
 function get_notes() {
@@ -121,9 +146,10 @@ function get_notes() {
 			// Check Response
 			if (data.status) {
 				// Show Data
-				if (data.data.length) {
+				if (data?.data?.length) {
 					note_handle(data.data);
 				} else {
+					note_handle({});
 					document.getElementById('nothing').classList.toggle('hidden');
 				}
 			} else {
@@ -139,17 +165,20 @@ function note_handle(notes) {
 	// Item
 	let notes_wrapper = document.getElementById('notes_wrapper');
 	notes_wrapper.innerHTML = '';
-	// Reverse
-	notes = notes.reverse();
-	// Handle
-	notes.forEach((note) => {
-		notes_wrapper.innerHTML += `<li class="notes-item">
+	if (notes.length) {
+		// hidden nothing
+		document.getElementById('nothing').classList.add('hidden');
+		// Reverse
+		notes = notes.reverse();
+		// Handle
+		notes.forEach((note) => {
+			notes_wrapper.innerHTML += `<li class="notes-item">
 			<div class="content">
 				<h3 class="notes-title">${note.title}</h3>
 				<p class="notes-content">${note.content}</p>
 			</div>
 			<div class="actions">
-				<button class="button button-delete">
+				<button data-noteid="${note.id}" class="button button-delete">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 					     class="bi bi-trash" viewBox="0 0 16 16">
 						<path
@@ -167,5 +196,14 @@ function note_handle(notes) {
 				</button>
 			</div>
 		</li>`;
-	});
+		});
+		// Add Event Delete
+		const delete_btns = document.querySelectorAll('.button-delete');
+
+		delete_btns.forEach((btn) => {
+			btn.addEventListener('click', (e) => {
+				remove_note(btn.dataset.noteid);
+			});
+		});
+	}
 }
