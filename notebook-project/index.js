@@ -169,7 +169,8 @@ Router.get('notes', async (req, res, data) => {
 		status: true,
 		message: 'done !',
 		data: noteDatabase.getItem(user.email),
-		count: noteDatabase.countItems(user.email)
+		count: noteDatabase.countItems(user.email),
+		user_data: Auth.getCurrentUser(token)
 	});
 });
 

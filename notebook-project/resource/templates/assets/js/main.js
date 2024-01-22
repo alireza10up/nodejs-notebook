@@ -22,8 +22,7 @@ function login() {
 				});
 				setTimeout(() => {
 					window.location.href = '/list';
-
-				}, 5000);
+				}, 3000);
 			} else {
 				// Show Error Message
 				Swal.fire({
@@ -58,7 +57,7 @@ function register() {
 				});
 				setTimeout(() => {
 					window.location.href = '/list';
-				}, 5000);
+				}, 3000);
 			} else {
 				// Show Error Message
 				Swal.fire({
@@ -151,7 +150,10 @@ function get_notes() {
 				} else {
 					note_handle({});
 					document.getElementById('nothing').classList.toggle('hidden');
+					document.getElementById('count-note').innerHTML = 0;
 				}
+				// update meta
+				show_meta(data);
 			} else {
 				// Show Error Message
 				Swal.fire({
@@ -211,4 +213,10 @@ function note_handle(notes) {
 function delete_cookies() {
 	document.cookie = 'clear';
 	window.location.reload();
+}
+
+function show_meta(data) {
+	document.getElementById('count-note').innerHTML = data.count;
+	document.getElementById('time-register').innerHTML = new Date(data.user_data.time).toDateString();
+	document.getElementById('user-name').innerHTML = data.user_data.name;
 }
