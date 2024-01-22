@@ -122,15 +122,29 @@ Router.post('register', async (req, res, data) => {
 });
 
 Router.get('list', async (req, res, data) => {
-	// Load Template
 	res.setHeader('Content-Type', headers.html);
-	return Utilities.template('list');
+	// Check User Can
+	const token = req.headers.cookie ?? '';
+	if (!Auth.can(token)) {
+		// Load Template
+		return Utilities.template('login');
+	} else {
+		// Load Template
+		return Utilities.template('list');
+	}
 });
 
 Router.get('', async (req, res, data) => {
-	// Load Template
 	res.setHeader('Content-Type', headers.html);
-	return Utilities.template('list');
+	// Check User Can
+	const token = req.headers.cookie ?? '';
+	if (!Auth.can(token)) {
+		// Load Template
+		return Utilities.template('login');
+	} else {
+		// Load Template
+		return Utilities.template('list');
+	}
 });
 
 Router.get('notes', async (req, res, data) => {
@@ -154,7 +168,7 @@ Router.get('notes', async (req, res, data) => {
 	return JSON.stringify({
 		status: true,
 		message: 'done !',
-		data: [noteDatabase.getItem(user.email)],
+		data: noteDatabase.getItem(user.email),
 		count: noteDatabase.countItems(user.email)
 	});
 });

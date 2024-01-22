@@ -173,6 +173,7 @@ body {
 /* sections notes stlye */
 
 .sections-notes-section {
+    width: 100%;
     margin: 20px auto;
     background: var(--color2);
     padding: 20px;
@@ -200,6 +201,7 @@ body {
 .notes-item {
     margin-bottom: 10px;
     display: flex;
+    justify-content: space-between;
     padding: 5px;
     border: 1px solid var(--color5) ;
     border-radius: 5px;
