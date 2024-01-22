@@ -69,6 +69,28 @@ class Database {
 		}
 	}
 
+	removeSubItem(key, id) {
+		const data = this.database;
+		if (data && key in data) {
+			const items = data[key];
+			const updatedItems = [];
+
+			for (const item of items) {
+				if (item.id !== id) {
+					updatedItems.push(item);
+				}
+			}
+
+			if (updatedItems.length > 0) {
+				data[key] = updatedItems;
+			} else {
+				delete data[key];
+			}
+
+			fs.writeFileSync(`./${this.bucket}.json`, JSON.stringify(data, null, 2), 'utf-8');
+		}
+	}
+
 	editItem(key, item) {
 		const data = this.database;
 		if (data && key in data) {
@@ -81,9 +103,9 @@ class Database {
 		const data = this.database;
 		if (data) {
 			if (!isSub) {
-				return Object.keys(data).length;
+				return Object.keys(data).length ?? 0;
 			} else {
-				return data[isSub].length;
+				return data[isSub]?.length ?? 0;
 			}
 		}
 		return 0;

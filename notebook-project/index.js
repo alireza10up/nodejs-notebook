@@ -127,6 +127,32 @@ Router.get('list', async (req, res, data) => {
 	return Utilities.template('list');
 });
 
+Router.get('notes', async (req, res, data) => {
+	// Load Note Database
+	const noteDatabase = new Database('notes');
+	// Load Database And Sync With Auth Service
+	const database = new Database('users');
+	Auth.users = database.database;
+
+	// Check User Can
+	const token = req.headers.cookie ?? '';
+	if (!Auth.can(token)) {
+		res.statusCode = 403;
+		return JSON.stringify({status: false, message: 'Your Session Not Valid Please Again Login !'});
+	}
+
+	// Get User Login
+	const user = Auth.getCurrentUser(token);
+
+	// Return All Notes
+	return JSON.stringify({
+		status: true,
+		message: 'done !',
+		data: [noteDatabase.getItem(user.email)],
+		count: noteDatabase.countItems(user.email)
+	});
+});
+
 Router.post('add_note', async (req, res, data) => {
 	// Load Note Database
 	const noteDatabase = new Database('notes');
@@ -161,7 +187,11 @@ Router.post('add_note', async (req, res, data) => {
 
 		// Add Note In Database
 		noteDatabase.putItem({
-			email: user.email, title: data.title, content: data.content, time: Date.now()
+			id: "id"+Math.random().toString(16).slice(2),
+			email: user.email,
+			title: data.title,
+			content: data.content,
+			time: Date.now()
 		});
 
 		// Response
@@ -173,7 +203,7 @@ Router.post('add_note', async (req, res, data) => {
 	}
 });
 
-Router.get('notes', async (req, res, data) => {
+Router.post('remove_note', async (req, res, data) => {
 	// Load Note Database
 	const noteDatabase = new Database('notes');
 	// Load Database And Sync With Auth Service
@@ -190,13 +220,33 @@ Router.get('notes', async (req, res, data) => {
 	// Get User Login
 	const user = Auth.getCurrentUser(token);
 
-	// Return All Notes
-	return JSON.stringify({
-		status: true,
-		message: 'done !',
-		data: [noteDatabase.getItem(user.email)],
-		count: noteDatabase.countItems(user.email)
-	});
+	try {
+		// Get Data
+		data = JSON.parse(data);
+
+		// Validation
+		const validationRules = {
+			id: {
+				required: true, type: 'string',
+			}
+		};
+
+		data = Validator.validate(data, validationRules);
+
+		// Remove Note
+		noteDatabase.removeSubItem(user.email, data.id);
+
+		// Response
+		res.statusCode = 200;
+		return JSON.stringify({status: true, message: 'Note Deleted successfully'});
+	} catch (error) {
+		res.statusCode = 400;
+		return JSON.stringify({status: false, message: error.message});
+	}
+});
+
+Router.post('edit_note', async (req, res, data) => {
+	return 'notes';
 });
 
 console.log('Routes available:', Router.routes);
