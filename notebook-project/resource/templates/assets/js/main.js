@@ -60,7 +60,6 @@ function register() {
 				});
 				setTimeout(() => {
 					window.location.href = '/list';
-
 				}, 5000);
 			} else {
 				// Show Error Message
@@ -72,7 +71,41 @@ function register() {
 }
 
 function add_note() {
+	// Get Form Data
+	let title = document.getElementById('input-title');
+	let content = document.getElementById('input-content');
 
+	let titleValue = title.value;
+	let contentValue = content.value;
+
+	// Create Data Object
+	const data = {
+		title: titleValue, content: contentValue
+	};
+
+	// Make A POST Request To The /register Route
+	fetch('/add_note', {
+		method: 'POST', body: JSON.stringify(data),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			// Check Response
+			if (data.status) {
+				// Show Success Message
+				Swal.fire({
+					icon: "success", title: data.message
+				});
+				// Clear Inputs
+				title.value = "";
+				content.value = "";
+				// Hidden Input
+			} else {
+				// Show Error Message
+				Swal.fire({
+					icon: "error", title: data.message,
+				});
+			}
+		});
 }
 
 function remove_note() {

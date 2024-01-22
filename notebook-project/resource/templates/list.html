@@ -46,10 +46,11 @@
 					<input type="text" id="input-title" placeholder="Enter Title">
 				</div>
 				<div class="input-group">
-					<textarea name="content" id="input-content" cols="30" rows="10"></textarea>
+					<textarea name="content" id="input-content" cols="30" rows="10" placeholder="Enter Content"></textarea>
 				</div>
 				<button class="button" type="submit">Submit Note</button>
 			</form>
+			<br>
 			<!-- notes -->
 			<li class="notes-item">
 				<div class="content">
@@ -87,9 +88,16 @@
 <script src="assets/js/sweetalert2.all.min.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
+	/* form submit note */
 	const add_note_btn = document.getElementById('button_add_note')
 	const add_note_form = document.getElementById('add_note_form');
 	add_note_btn.addEventListener('click', (e) => {
+		add_note_form.classList.toggle('hidden');
+	});
+
+	add_note_form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		add_note();
 		add_note_form.classList.toggle('hidden');
 	});
 </script>

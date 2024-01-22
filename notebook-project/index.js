@@ -127,6 +127,12 @@ Router.get('list', async (req, res, data) => {
 	return Utilities.template('list');
 });
 
+Router.get('', async (req, res, data) => {
+	// Load Template
+	res.setHeader('Content-Type', headers.html);
+	return Utilities.template('list');
+});
+
 Router.get('notes', async (req, res, data) => {
 	// Load Note Database
 	const noteDatabase = new Database('notes');
