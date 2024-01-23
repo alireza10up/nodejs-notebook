@@ -21,6 +21,32 @@ const types = {
 	text: 'text/plain', html: 'text/html', json: 'application/json',
 };
 
+/* Temp ch */
+Router.get('ch2', async (req, res, data) => {
+	// Load Template
+	res.setHeader('Content-Type', headers.html);
+	return 'challenge 2: salam !';
+});
+Router.get('ch3', async (req, res, data) => {
+	// Load Template
+	res.setHeader('Content-Type', headers.html);
+	return `<div style="width: 200px;height: 50px;padding: 20px 0 0 20px;background: greenyellow">
+	<b>challenge 3: </b><br>
+	salam!
+	</div>`;
+});
+Router.get('ch4', async (req, res, data) => {
+	// Load Template
+	let p2 = req.url.split('/')[2] ?? 'nothing';
+	res.setHeader('Content-Type', headers.html);
+	return `<div style="width: 200px;height: 50px;padding: 20px 0 0 20px;background: greenyellow">
+	<b>challenge 4: </b><br>
+	salam!<br>
+	${p2}
+	</div>`;
+});
+/* Temp ch */
+
 Router.get('login', async (req, res, data) => {
 	// Load Template
 	res.setHeader('Content-Type', headers.html);
