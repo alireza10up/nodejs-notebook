@@ -1,3 +1,11 @@
+# Install
+
+* clone repo
+* npm i
+* node index.js
+* go 127.0.0.1:8585
+* enjoy ^_^
+
 # Notebook End Points
 
 ## login
